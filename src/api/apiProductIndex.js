@@ -1,4 +1,4 @@
-export const APIurl = "https://desolate-island-23326.herokuapp.com/api";
+import { APIurl } from ".";
 
 export async function getAllProducts() {
     try {
@@ -14,8 +14,9 @@ export async function getAllProducts() {
     }
   }
   
-  export async function createProduct( {token, name, description, price, category, inventory, img_url }) {
-    const response = await fetch(`${APIurl}/products`,{
+  export async function createProduct( {token, name, description, price, price_type, category, inventory, img_url} ) {
+    try {
+      const response = await fetch(`${APIurl}/products`,{
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -30,12 +31,15 @@ export async function getAllProducts() {
          inventory:inventory,
          img_url:img_url,
         })
-      }) .then((response => response.json()))
-      .then(result => {
-        console.log(result) 
+      })
+      const result = await response.json();
+      console.log(result);
+      return result;
     }
-    ).catch(console.error)
+    catch (error) {
+      console.error(error);
     }
+  }
 
 
     export async function updateProduct( {token, name, description, price, category, inventory, img_url,product_id }) {
