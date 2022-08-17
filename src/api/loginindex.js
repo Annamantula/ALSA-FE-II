@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { useResolvedPah } from 'react-router-dom';
-const url = "https://desolate-island-23326.herokuapp.com/api";
+import { useResolvedPath } from 'react-router-dom';
+import { APIurl } from ".";
 
 export async function userLogin (email, password) {
-    const response = await fetch(`${url}/users/login`, {
+    const response = await fetch(`${APIurl}/users/login`, {
         method: "POST",
         headers:{
             "Content-Type": "application/json",
@@ -18,7 +18,7 @@ export async function userLogin (email, password) {
 };
 
 export async function userRegister (email, password) {
-    const response = await fetch(`${url}/users/register`, {
+    const response = await fetch(`${APIurl}/users/register`, {
         method: "POST",
         headers:{
             "Content-Type": "application/json",

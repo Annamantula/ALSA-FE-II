@@ -1,24 +1,24 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { getAllProducts } from "../api/apiProductIndex";
+import { CreateProduct } from "./index"
 
-export default async function Product({products,setProducts}) {
-
+export default function Products() {
+  const [products, setProducts] = useState([]);
     useEffect(() => {
         getAllProducts().then((result) => {
           setProducts(result);
         });
       }, []);
 
-      const productMap = products.map((product,id) => {
+     return(
+      <div>
+        <CreateProduct />
+        {products.map((product, id) => {
         return (
-            <div>
-                <button>Create Product</button>
-                <button>Update Product</button>
-                <button>Delete</button>
           <div key={id} >
             <h5>Name:</h5>
             <p>{product.name}</p>
-            <p>{product.img_url}</p>
+            <img src={product.img_url} alt={product.name}/>
             <h5 >Description:</h5>
             <p>{product.description}</p>
             <h5 >Price:</h5>
@@ -28,12 +28,9 @@ export default async function Product({products,setProducts}) {
             <h5 >Inventory:</h5>
             <p>{product.inventory}</p>
           </div>
-          </div>
         );
-      });
-    return(
-<div>
-    {productMap}
-</div>
-    )
+      })}
+      </div>
+     )
+
 }

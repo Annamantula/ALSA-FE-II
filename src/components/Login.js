@@ -12,9 +12,10 @@ function Login() {
         const result = await userLogin(email, password);
         setMessage(result.message);
         if (result.token) {
-            setToken(result.tokan);
-            localStorage.setItem("token", result.tokan);
+            setToken(result.token);
+            localStorage.setItem("token", result.token);
             localStorage.setItem("email", email);
+            localStorage.setItem("isAdmin", result.user.isAdmin)
         }
     }
 
@@ -25,6 +26,7 @@ function Login() {
             <h3>Logged in as {email}</h3>
             <button onClick={() => {
                 localStorage.removeItem("token");
+                localStorage.removeItem("isAdmin");
                 setToken("");
             }}>Log Out</button>
         </div>

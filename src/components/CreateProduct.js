@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { createProduct } from "../api";
+import { createProduct } from "../api/apiProductIndex";
 
-export default async function createProduct() {
+export default function CreateProduct() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -9,6 +9,7 @@ export default async function createProduct() {
   const [category, setCategory] = useState("");
   const [inventory, setInventory] = useState("");
   const [img_url, setImg_url] = useState("");
+  const [isAdmin, setIsAdmin] = useState(localStorage.getItem("isAdmin") ? localStorage.getItem("isAdmin"):false)
 
   const authToken = localStorage.getItem("token") ? true : false;
 
@@ -16,25 +17,26 @@ export default async function createProduct() {
     event.preventDefault();
     const token = localStorage.getItem("token");
     alert("New Product Created");
-    const response = await createProduct(
-      token,
-      name,
-      description,
-      price,
-      price_type,
-      category,
-      inventory,
-      img_url
-    );
+    const response = await createProduct({
+      token: token,
+      name: name,
+      description: description,
+      price: price,
+      price_type: price_type,
+      category: category,
+      inventory: inventory,
+      img_url: img_url
+  });
     return response;
   }
+
   return (
     <section>
       <div>
         <div>
           <div>
             <div>
-              {authToken === true && isAdmin === true ? (
+              {authToken && isAdmin  ? (
                 <>
                   <h1>Create a New Product</h1>
                   <form onSubmit={handleSubmit}>
