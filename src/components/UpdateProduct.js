@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 
-export default async function UpdateProduct(product_id) {
+export default function UpdateProduct(product_id) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [inventory, setInventory] = useState("");
   const [img_url, setImg_url] = useState("");
+  const [isAdmin, setIsAdmin] = useState(localStorage.getItem("isAdmin") ? localStorage.getItem("isAdmin"):false)
+
+  const authToken = localStorage.getItem("token") ? true : false;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -35,7 +38,7 @@ export default async function UpdateProduct(product_id) {
         <div>
           <div>
             <div>
-              {authToken === true && isAdmin === true ? (
+              {authToken && isAdmin ? (
                 <>
                   <h1>Create a New Product</h1>
                   <form onSubmit={handleSubmit}>
