@@ -1,7 +1,9 @@
 import { useState } from "react"
 import { userLogin } from "../api/loginindex";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+    let navigate = useNavigate()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
@@ -18,6 +20,11 @@ function Login() {
             localStorage.setItem("isAdmin", result.user.isAdmin)
         }
     }
+
+    const registerButton = async (event) => {
+        event.preventDefault();
+        navigate("/Register");
+      };
 
     return(
         (token ? 
@@ -47,6 +54,7 @@ function Login() {
                 </fieldset>
                 <fieldset>
                     <button type="submit">Login</button>
+                    <button type="submit" onClick={registerButton}>Register</button>
                     <p>{message}</p>
                 </fieldset>
             </form>

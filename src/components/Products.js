@@ -2,21 +2,44 @@ import React, { useEffect, useState } from "react"
 import { getAllProducts } from "../api/apiProductIndex";
 import { UpdateProduct, DeleteProduct } from "./index"
 
-export default function Products() {
+export default function Products(props) {
   const [refresh, setRefresh] = useState(false);
   const [products, setProducts] = useState([]);
+  const [category] = [props.category];
+
     useEffect(() => {
         getAllProducts().then((result) => {
           setProducts(result);
         });
-      }, [refresh]);
+      }, []);
+
+    
 
      return(
+        
       <div>
+        {/* <div>
+              <button onClick={(event)=>{
+                event.preventDefault() 
+              setCategory("fruit")
+            }}>Fruit</button>
+          <button onClick={(event)=>{
+                event.preventDefault() 
+            setCategory("grocery")}}>Grocery</button>
+          <button onClick={(event)=>{
+                event.preventDefault() 
+            setCategory("meat")}}>Meat</button>
+          <button onClick={(event)=>{
+                event.preventDefault() 
+            setCategory("vegetable")}}>Vegetable</button>
+            <button onClick={(event)=>{
+                event.preventDefault() 
+            setCategory("")}}>All Categories</button>
+        </div> */}
         
         {products.map((product, id) => {
         return (
-          (product.isActive || localStorage.getItem("isAdmin")? (
+          ((product.isActive || localStorage.getItem("isAdmin")) && (!category || product.category === category) ? (
           <div key={id} >
           <h5>Name:</h5>
           <p>{product.name}</p>
