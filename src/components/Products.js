@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
+import { Link } from "react-router-dom";
 import { getAllProducts } from "../api/apiProductIndex";
-import { UpdateProduct, DeleteProduct } from "./index"
+import { UpdateProduct, DeleteProduct, CreateProduct } from "./index"
 
 export default function Products(props) {
   const [refresh, setRefresh] = useState(false);
@@ -36,11 +37,12 @@ export default function Products(props) {
                 event.preventDefault() 
             setCategory("")}}>All Categories</button>
         </div> */}
-        
-        {products.map((product, id) => {
+        <CreateProduct />
+        {products.map((product) => {
         return (
           ((product.isActive || localStorage.getItem("isAdmin")) && (!category || product.category === category) ? (
-          <div key={id} >
+          <div key={product.id} >
+            <Link to={`/products/${product.id}`}>Details</Link>
           <h5>Name:</h5>
           <p>{product.name}</p>
           <img src={product.img_url} alt={product.name}/>

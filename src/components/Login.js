@@ -23,7 +23,7 @@ function Login() {
 
     const registerButton = async (event) => {
         event.preventDefault();
-        navigate("/Register");
+        navigate("/register");
       };
 
     return(
