@@ -81,7 +81,7 @@ export default function CreateProduct() {
                   </form>
                 </>
               ) : (
-                <h2>You are not an Admin</h2>
+                null
               )}
             </div>
           </div>
