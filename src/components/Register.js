@@ -12,8 +12,8 @@ function Register() {
         const result = await userRegister(email, password);
         setMessage(result.message);
         if (result.token) {
-            setToken(result.tokan);
-            localStorage.setItem("token", result.tokan);
+            setToken(result.token);
+            localStorage.setItem("token", result.token);
             localStorage.setItem("email", email);
         }
     }

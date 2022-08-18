@@ -1,12 +1,15 @@
 import React, { useState } from "react";
+import { updateProduct } from "../api/apiProductIndex";
 
-export default function UpdateProduct(product_id) {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("");
-  const [inventory, setInventory] = useState("");
-  const [img_url, setImg_url] = useState("");
+export default function UpdateProduct(props) {
+  const [product_id, refresh, setRefresh] = [props.product_id, props.refresh, props.setRefresh];
+  const [name, setName] = useState(props.name ? props.name : "");
+  const [description, setDescription] = useState(props.description ? props.description : "");
+  const [price, setPrice] = useState(props.price ? props.price : 0);
+  const [price_type, setPrice_type] = useState(props.price_type ? props.price_type : "");
+  const [category, setCategory] = useState(props.category ? props.category : "");
+  const [inventory, setInventory] = useState(props.inventory ? props.inventory : 0);
+  const [img_url, setImg_url] = useState(props.img_url ? props.img_url : "");
   const [isAdmin, setIsAdmin] = useState(localStorage.getItem("isAdmin") ? localStorage.getItem("isAdmin"):false)
 
   const authToken = localStorage.getItem("token") ? true : false;
@@ -14,22 +17,26 @@ export default function UpdateProduct(product_id) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const token = localStorage.getItem("token");
-    const updatedProduct = await UpdateActivities(
-      token,
-      name,
-      description,
-      price,
-      category,
-      inventory,
-      img_url,
-      product_id
+    const updatedProduct = await updateProduct({
+      product_id: product_id,
+      token: token,
+      name: name,
+      description: description,
+      price: price,
+      price_type: price_type,
+      category: category,
+      inventory: inventory,
+      img_url: img_url
+    }
     );
-    setName("");
-    setDescription("");
-    setPrice("");
-    setCategory("");
-    setInventory("");
-    setImg_url("");
+    setRefresh(!refresh);
+    // setName("");
+    // setDescription("");
+    // setPrice(0);
+    // setPrice_type("");
+    // setCategory("");
+    // setInventory(0);
+    // setImg_url("");
     return updatedProduct;
   };
   return (
@@ -45,31 +52,43 @@ export default function UpdateProduct(product_id) {
                     <div>
                       <input
                         type="text"
+                        value={name}
                         onChange={(event) => setName(event.target.value)}
                         placeholder="name"
-                      ></input>
+                        ></input>
                       <input
                         type="text"
+                        value={description}
                         onChange={(event) => setDescription(event.target.value)}
                         placeholder="description"
-                      ></input>
+                        ></input>
                       <input
                         type="text"
+                        value={price}
                         onChange={(event) => setPrice(event.target.value)}
                         placeholder="price"
-                      ></input>
+                        ></input>
                       <input
                         type="text"
+                        value={price_type}
+                        onChange={(event) => setPrice_type(event.target.value)}
+                        placeholder="price_type"
+                        ></input>
+                      <input
+                        type="text"
+                        value={category}
                         onChange={(event) => setCategory(event.target.value)}
                         placeholder="category"
                       ></input>
                       <input
                         type="text"
+                        value={inventory}
                         onChange={(event) => setInventory(event.target.value)}
                         placeholder="inventory"
                       ></input>
                       <input
                         type="text"
+                        value={img_url}
                         onChange={(event) => setImg_url(event.target.value)}
                         placeholder="Picture url"
                       ></input>
@@ -78,7 +97,7 @@ export default function UpdateProduct(product_id) {
                   </form>
                 </>
               ) : (
-                <h2>You are not an Admin</h2>
+                null
               )}
             </div>
           </div>

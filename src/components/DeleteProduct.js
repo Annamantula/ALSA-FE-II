@@ -1,16 +1,16 @@
-import React from "react";
-import { deleteProduct} from "../api";
+import React, { useState } from "react";
+import { deleteProduct} from "../api/apiProductIndex";
 
 
-
-
-export default function  DeleteProduct ({product_id}){
+export default function  DeleteProduct (props){
+    const [product_id] = [props.product_id];
     const [isAdmin, setIsAdmin] = useState(localStorage.getItem("isAdmin") ? localStorage.getItem("isAdmin"):false)
     const authToken = localStorage.getItem("token") ? true : false;
 
     async function deleteProducts() {
-        const tokens = localStorage.getItem("token");
-        const erase = await deleteProduct(tokens, product_id);
+        const token = localStorage.getItem("token");
+        console.log(token, product_id, "NEWWWWW")
+        const erase = await deleteProduct(token, product_id);
         return erase;
       }
     return (
@@ -24,8 +24,9 @@ export default function  DeleteProduct ({product_id}){
         Delete Product
       </button>
         ) : (
-            <h2>You are not an Admin</h2>
+            null
           )}
       </div>
     )
 }
+
