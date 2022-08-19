@@ -4,6 +4,7 @@ import { Products, Login, Register,Home,NavBar, SingleProduct } from "./index";
 
 const App = () => {
     const [category,setCategory] = useState("");
+    const [cart,setCart] = useState({});
 
 
     return (
