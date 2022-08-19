@@ -1,6 +1,6 @@
 import React,{useState} from "react"
 import { Route, Link, Routes } from "react-router-dom";
-import { Products, Login, Register,Home,NavBar, SingleProduct, Cart } from "./index";
+import { Products, Login, Register,Home,NavBar, SingleProduct, Cart,Checkout,MyAccount } from "./index";
 
 const App = () => {
     const [category,setCategory] = useState("");
@@ -17,6 +17,9 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/cart" element={<Cart cart={cart} setCart={setCart}/>} />
+            <Route path="/checkout/me" element={<MyAccount />} />
+            <Route path="/checkout/" element={<Checkout />} />
+
             </Routes>
         </div>
     )

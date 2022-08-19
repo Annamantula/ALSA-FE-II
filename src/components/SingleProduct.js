@@ -17,6 +17,7 @@ export default function SingleProduct(props) {
   const [count, setCount] = useState(0);
   const { product_id } = useParams();
 
+
   useEffect(() => {
     getProductById(product_id).then((result) => {
       console.log(result);
@@ -44,15 +45,16 @@ export default function SingleProduct(props) {
         console.log(addProd, "addProd");
       }
     } else {
-      if (localStorage.getItem("cartCode")) {
-        const cart = await getGuestCartByCode(code);
+      if (cartCode) {
+        const cart = await getGuestCartByCode(cartCode);
         setCart(cart);
         const addProd = await addProductToCart(product_id, cart.id, count);
         console.log(addProd, "addProd");
       } else {
         const code = await createGuestCart();
-        const cart = await getGuestCartByCode(code);
-        localStorage.setItem("cartCode", code);
+        console.log(code,"CODE")
+        const cart = await getGuestCartByCode(code.code);
+        localStorage.setItem("cartCode", code.code);
         setCart(cart);
         const addProd = await addProductToCart(product_id, cart.id, count);
         console.log(addProd, "addProd");
