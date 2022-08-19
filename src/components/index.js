@@ -8,3 +8,4 @@ export { default as CreateProduct } from "./CreateProduct";
 export { default as Home } from "./Home";
 export { default as NavBar } from "./NavBar";
 export { default as SingleProduct } from "./SingleProduct";
+export { default as Cart } from "./Cart";

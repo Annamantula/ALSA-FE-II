@@ -1,6 +1,6 @@
 import React,{useState} from "react"
 import { Route, Link, Routes } from "react-router-dom";
-import { Products, Login, Register,Home,NavBar, SingleProduct } from "./index";
+import { Products, Login, Register,Home,NavBar, SingleProduct, Cart } from "./index";
 
 const App = () => {
     const [category,setCategory] = useState("");
@@ -13,10 +13,10 @@ const App = () => {
            <Routes>
            <Route path="/" element={<Home />} />
             <Route path="/products" element={<Products category={category}/>} />
-            <Route path="/products/:product_id" element={<SingleProduct />} />
+            <Route path="/products/:product_id" element={<SingleProduct setCart={setCart}/>} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            
+            <Route path="/cart" element={<Cart cart={cart} setCart={setCart}/>} />
             </Routes>
         </div>
     )
