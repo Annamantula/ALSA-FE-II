@@ -88,7 +88,7 @@ export async function getAllProducts() {
 
     export async function getProductById(product_id){
       try{
-        const repsonse= await fetch(`${APIurl}/products/${product_id}`, {
+        const response= await fetch(`${APIurl}/products/${product_id}`, {
           method: "GET",
           headers: {
             'Content-Type': 'application/json',
@@ -102,8 +102,9 @@ export async function getAllProducts() {
     }
 
     export async function addProductToCart(product_id, cart_id, count){
+      console.log(cart_id)
       try{
-        const response= await fetch(`${APIurl}/cart/${product_id}/${cart_id}`, {
+        const response= await fetch(`${APIurl}/products/cart/${product_id}/${cart_id}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -137,12 +138,13 @@ export async function getAllProducts() {
       }
     }
 
-    export async function getCartByUserId (user_id){
+    export async function getCartByUserId (token, user_id){
       try{
         const response = await fetch(`${APIurl}/cart/users/${user_id}`,{
           method: "GET",
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
           }
         });
         const result = await response.json();
