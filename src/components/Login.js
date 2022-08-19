@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { userLogin } from "../api/loginindex";
 import { useNavigate } from "react-router-dom";
+import { createUserCart, getCartByUserId } from "../api/apiProductIndex";
 
 function Login() {
     let navigate = useNavigate()
@@ -18,6 +19,14 @@ function Login() {
             localStorage.setItem("token", result.token);
             localStorage.setItem("email", email);
             localStorage.setItem("isAdmin", result.user.isAdmin)
+            if (getCartByUserId(result.id)){
+           
+            const cart = await getCartByUserId(result.id)
+            setCart(cart)
+            }else{
+           const cart = await createUserCart(result.token)
+            setCart(cart)
+            }
         }
     }
 
