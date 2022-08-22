@@ -14,7 +14,7 @@ import { getUser } from "../api/userIndex";
 export default function SingleProduct(props) {
   const [setCart] = [props.setCart];
   const [product, setProduct] = useState([]);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
   const { product_id } = useParams();
 
 

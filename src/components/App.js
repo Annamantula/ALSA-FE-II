@@ -5,6 +5,7 @@ import { Products, Login, Register,Home,NavBar, SingleProduct, Cart,Checkout,MyA
 const App = () => {
     const [category,setCategory] = useState("");
     const [cart,setCart] = useState({});
+    
 
 
     return (

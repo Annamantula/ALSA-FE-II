@@ -14,7 +14,18 @@ export default function Cart(props) {
       const cart = await getCartByUserId(token, user.id);
       setCart(cart);
     } else {
-      const cart = await getGuestCartByCode(localStorage.getItem("cartCode"));
+        const cartCode = localStorage.getItem("cartCode");
+        if(!cartCode){
+            const code = await createGuestCart();
+            console.log(code,"CODE")
+            const cart = await getGuestCartByCode(code.code);
+            localStorage.setItem("cartCode", code.code);
+            setCart(cart);
+        }
+        else{
+            const cart = await getGuestCartByCode(cartCode);
+        }
+      
       setCart(cart);
     }
   }
@@ -29,14 +40,16 @@ export default function Cart(props) {
 
       {cart.products
         ? cart.products.map((product) => {
+            console.log(product);
             return (
-              <div key={product.id}>
-                <h3>{product.name}</h3>
-                <label>Qnty:
-                <input type="number" min="1" max={product.inventory} >
-                </input>
-                </label>
-              </div>
+                (product.count ? <div key={product.id}>
+                    <h3>{product.name}</h3>
+                    <label>Qnty:
+                    <input type="number" min="1" max={product.inventory} placeholder={1} >
+                    </input>
+                    </label>
+                  </div> : null)
+              
 
             );
           })
