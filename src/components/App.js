@@ -5,6 +5,7 @@ import { Products, Login, Register,Home,NavBar, SingleProduct, Cart,Checkout,MyA
 const App = () => {
     const [category,setCategory] = useState("");
     const [cart,setCart] = useState({});
+    
 
 
     return (
@@ -14,7 +15,7 @@ const App = () => {
            <Route path="/" element={<Home />} />
             <Route path="/products" element={<Products category={category}/>} />
             <Route path="/products/:product_id" element={<SingleProduct setCart={setCart}/>} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<Login setCart={setCart}/>} />
             <Route path="/register" element={<Register />} />
             <Route path="/cart" element={<Cart cart={cart} setCart={setCart}/>} />
             <Route path="/checkout/me" element={<MyAccount />} />

@@ -68,6 +68,25 @@ export async function getAllProducts() {
       }
     }
 
+    export async function updateCartProduct({ count, guest_cart_id, cart_product_id }) {
+      try{
+      const response = await fetch(`${APIurl}/cart/guest/${guest_cart_id}/${cart_product_id}`,{
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            count: count,
+          })
+        }
+        ) 
+        const result = response.json();
+        return result;
+      }catch(error){
+        console.log(error);
+      }
+    }
+
 
     export async function deleteProduct(token, product_id){
       console.log(token, product_id, "HELLO")

@@ -1,6 +1,6 @@
 import { useEffect,useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getCartByUserId, getGuestCartByCode } from "../api/apiProductIndex";
+import { getCartByUserId, getGuestCartByCode, createGuestCart, updateCartProduct } from "../api/apiProductIndex";
 import { getUser } from "../api/userIndex";
 
 
@@ -14,18 +14,26 @@ export default function Cart(props) {
       const cart = await getCartByUserId(token, user.id);
       setCart(cart);
     } else {
-      const cart = await getGuestCartByCode(localStorage.getItem("cartCode"));
+        const cartCode = localStorage.getItem("cartCode");
+        if(!cartCode){
+            const code = await createGuestCart();
+            console.log(code,"CODE")
+            const cart = await getGuestCartByCode(code.code);
+            localStorage.setItem("cartCode", code.code);
+            setCart(cart);
+        }
+        else{
+            const cart = await getGuestCartByCode(cartCode);
+        }
+      
       setCart(cart);
     }
+    console.log(cart, "CART");
   }
   useEffect(() => {
     getCart();
   }, []);
 
-  const checkout = async (event) => {
-    event.preventDefault();
-    navigate("/Checkout");
-  };
 
   return (
     <div>
@@ -33,15 +41,17 @@ export default function Cart(props) {
 
       {cart.products
         ? cart.products.map((product) => {
+            console.log(product);
             return (
-              <div key={product.id}>
-                <h3>{product.name}</h3>
-                <label>Qnty:
-                <input type="number" min="1" max={product.inventory} >
-                </input>
-                </label>
-              </div>
-
+                (product.count ? <div key={product.id}>
+                    <h3>{product.name}</h3>
+                    <label>Qnty:
+                    <input type="number" min="1" max={product.inventory} placeholder={1} >
+                    </input>
+                    </label>
+                    <button onClick={() => {updateCartProduct({ count: 0, guest_cart_id: cart.guest_cart_id, cart_product_id: product.cartProductId })}}>Delete</button>
+                  </div> : null)
+                  
             );
           })
         : null}

@@ -2,6 +2,7 @@ import React, { useState }  from "react";
 import { createContactInfo } from "../api/userIndex";
 import { useNavigate } from "react-router-dom";
 
+
 export default function MyAccount() {
   const[ first_name,setFirst_name] = useState('')
     const[last_name,setLast_name] =useState('')
@@ -28,9 +29,14 @@ export default function MyAccount() {
             city:city,
             zip:zip
       });
-
-
         return response;
+      }
+      const handOnChange = (event)=> {
+        const input = event.target.id;
+        if(input == " ") {
+          alert("Form must be filed out")
+          return false
+        }
       }
 
       let nav = useNavigate();
@@ -42,13 +48,14 @@ export default function MyAccount() {
           <div>
             <input
               type="text"
-              onChange={(event) => setFirst_name(event.target.value)}
+              onChange={handOnChange}
               placeholder="name"
             ></input>
             <input
               type="text"
               onChange={(event) => setLast_name(event.target.value)}
               placeholder="last name"
+              value={last_name}
             ></input>
             <input
               type="text"
