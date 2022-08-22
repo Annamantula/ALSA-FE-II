@@ -22,10 +22,6 @@ export default function Cart(props) {
     getCart();
   }, []);
 
-  const checkout = async (event) => {
-    event.preventDefault();
-    navigate("/Checkout");
-  };
 
   return (
     <div>
