@@ -3,8 +3,9 @@ import { userLogin } from "../api/loginindex";
 import { useNavigate } from "react-router-dom";
 import { createUserCart, getCartByUserId } from "../api/apiProductIndex";
 
-function Login() {
+function Login(props) {
     let navigate = useNavigate()
+    const [setCart] = [props.setCart]
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
