@@ -8,6 +8,7 @@ import {
   createGuestCart,
   createUserCart,
   addProductToCart,
+  updateCartProduct,
 } from "../api/apiProductIndex";
 import { getUser } from "../api/userIndex";
 
@@ -36,28 +37,65 @@ export default function SingleProduct(props) {
       const cart = await getCartByUserId(token, user.id);
       if (cart) {
         setCart(cart);
-        const addProd = await addProductToCart(product_id, cart.id, count);
-        console.log(addProd, "addProd");
+        const cartProduct = await cart.products.filter((product) => {
+          return product.id === product_id
+        });
+        if(cartProduct[0]) {
+          console.log(cart.guest_cart_id, "HELLOOOO");
+          console.log(cartProduct, "BYEEEE");
+          const updateProd = await updateCartProduct({count: 1, guest_cart_id: cart.guest_cart_id, cart_product_id: cartProduct[0].cartProductId});
+        } else {
+          const addProd = await addProductToCart(product_id, cart.id, count);
+          console.log(addProd, "addProd");
+        }
       } else {
         const cart = await createUserCart();
         setCart(cart);
-        const addProd = await addProductToCart(product_id, cart.id, count);
-        console.log(addProd, "addProd");
+        if(cartProduct[0]) {
+          console.log(cart.guest_cart_id, "HELLOOOO");
+          console.log(cartProduct, "BYEEEE");
+          const updateProd = await updateCartProduct({count: 1, guest_cart_id: cart.guest_cart_id, cart_product_id: cartProduct[0].cartProductId});
+        } else {
+          const addProd = await addProductToCart(product_id, cart.id, count);
+          console.log(addProd, "addProd");
+        }
       }
     } else {
       if (cartCode) {
         const cart = await getGuestCartByCode(cartCode);
         setCart(cart);
-        const addProd = await addProductToCart(product_id, cart.id, count);
-        console.log(addProd, "addProd");
+        console.log(cart, "CARTTTT");
+        const cartProduct = await cart.products.filter((product) => {
+          console.log(product.id == product_id, "TRIPLE EQUALS");
+          return product.id == product_id
+        });
+        if(cartProduct[0]) {
+          console.log(cart.guest_cart_id, "HELLOOOO");
+          console.log(cartProduct, "BYEEEE");
+          const updateProd = await updateCartProduct({count: 1, guest_cart_id: cart.guest_cart_id, cart_product_id: cartProduct[0].cartProductId});
+        } else {
+          const addProd = await addProductToCart(product_id, cart.id, count);
+          console.log(addProd, "addProd");
+        }
       } else {
         const code = await createGuestCart();
         console.log(code,"CODE")
         const cart = await getGuestCartByCode(code.code);
         localStorage.setItem("cartCode", code.code);
         setCart(cart);
-        const addProd = await addProductToCart(product_id, cart.id, count);
-        console.log(addProd, "addProd");
+        const cartProduct = await cart.products.filter((product) => {
+          return product.id === product_id
+        });
+        console.log(cartProduct)
+        if(cartProduct[0]) {
+          console.log(cart.guest_cart_id, "HELLOOOO");
+          console.log(cartProduct, "BYEEEE");
+          const updateProd = await updateCartProduct({count: 1, guest_cart_id: cart.guest_cart_id, cart_product_id: cartProduct[0].cartProductId});
+        } else {
+          const addProd = await addProductToCart(product_id, cart.id, count);
+          console.log(addProd, "addProd");
+        }
+      
       }
     }
   };

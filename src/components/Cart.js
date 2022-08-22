@@ -1,6 +1,6 @@
 import { useEffect,useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getCartByUserId, getGuestCartByCode } from "../api/apiProductIndex";
+import { getCartByUserId, getGuestCartByCode, createGuestCart, updateCartProduct } from "../api/apiProductIndex";
 import { getUser } from "../api/userIndex";
 
 
@@ -28,6 +28,7 @@ export default function Cart(props) {
       
       setCart(cart);
     }
+    console.log(cart, "CART");
   }
   useEffect(() => {
     getCart();
@@ -48,9 +49,9 @@ export default function Cart(props) {
                     <input type="number" min="1" max={product.inventory} placeholder={1} >
                     </input>
                     </label>
+                    <button onClick={() => {updateCartProduct({ count: 0, guest_cart_id: cart.guest_cart_id, cart_product_id: product.cartProductId })}}>Delete</button>
                   </div> : null)
-              
-
+                  
             );
           })
         : null}
