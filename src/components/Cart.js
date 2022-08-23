@@ -1,6 +1,6 @@
 import { useEffect,useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getCartByUserId, getGuestCartByCode, createGuestCart, updateCartProduct } from "../api/apiProductIndex";
+import { getCartByUserId, getGuestCartByCode, createGuestCart, updateCartProduct,updateUserCartProduct,createUserCart } from "../api/apiProductIndex";
 import { getUser } from "../api/userIndex";
 
 
@@ -53,13 +53,27 @@ export default function Cart(props) {
         ? cart.products.map((product) => {
             console.log(product);
             return (
-                (product.count ? <div key={product.id}>
+                (product.count !== 0 ? <div key={product.id}>
                     <h3>{product.name}</h3>
+                    <img src={product.img_url} alt={product.name}/>
                     <label>Qnty:
                     <input type="number" min="1" max={product.inventory} placeholder={1} >
                     </input>
                     </label>
-                    <button onClick={() => {updateCartProduct({ count: 0, guest_cart_id: cart.guest_cart_id, cart_product_id: product.cartProductId })}}>Delete</button>
+                    <button onClick={() => {
+                      console.log("delete")
+                      const token = localStorage.getItem("token");
+                      if (token){
+                        console.log ("iffff")
+                       updateUserCartProduct({token:token, count: 0, cart_user_id: cart.user_id, product_id: product.id })
+                       
+                      }else{
+                       console.log("elseee")
+                       updateCartProduct({ count: 0, guest_cart_id: cart.guest_cart_id, cart_product_id: product.cartProductId })
+                       }
+                       }
+                       }>Delete</button>
+                    
                   </div> : null)
                   
             );
