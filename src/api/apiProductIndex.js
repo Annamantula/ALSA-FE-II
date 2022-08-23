@@ -158,6 +158,7 @@ export async function getAllProducts() {
     }
 
     export async function getCartByUserId (token, user_id){
+      console.log(token, "APIid")
       try{
         const response = await fetch(`${APIurl}/cart/users/${user_id}`,{
           method: "GET",
@@ -172,6 +173,7 @@ export async function getAllProducts() {
         console.log(error);
       }
     }
+    
     export async function createUserCart (token) {
       try{
         const response = await fetch(`${APIurl}/cart/users`, {
@@ -193,7 +195,7 @@ export async function getAllProducts() {
   export async function createGuestCart () {
     try{
       const response = await fetch(`${APIurl}/cart/guest`, {
-        method: "POST",
+        method: "GET",
       headers: {
         "Content-Type": "application/json",
 
@@ -208,9 +210,54 @@ export async function getAllProducts() {
   }
 }
 
+// export async function deleteGuestCart(code){
+//   try{
+//     const response = await fetch(`${APIurl}/cart/guest/${code}`,{
+//       method: "DELETE",
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//     });
+//     const result = await response.json();
+//     return result;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
 
-       
+export async function deleteGuestCart(code){
+  try{
+    const response = await fetch(`${APIurl}/cart/guest/${code}`,{
+      method: "DELETE",
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+}
 
+
+
+export async function deleteUserCart (token, user_id){
+  console.log(token, "token for deletion")
+  try{
+    const response = await fetch(`${APIurl}/cart/users/${user_id}`,{
+      method: "DELETE",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+}
 
     // export async function createUser(isAdmin) {
     //   try {

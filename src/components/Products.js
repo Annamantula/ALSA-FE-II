@@ -37,7 +37,8 @@ export default function Products(props) {
                 event.preventDefault() 
             setCategory("")}}>All Categories</button>
         </div> */}
-        <CreateProduct />
+        {(localStorage.getItem("isAdmin") === "true" ? <CreateProduct />:null)}
+        
         {products.map((product) => {
         return (
           ((product.isActive || localStorage.getItem("isAdmin")) && (!category || product.category === category) ? (
@@ -54,8 +55,11 @@ export default function Products(props) {
           <p>{product.category}</p>
           {/* <h5 >Inventory:</h5> */}
           <p>{product.inventory}</p>
+          {(localStorage.getItem("isAdmin") === "true" ? <div>
           <UpdateProduct name={product.name} refresh={refresh} setRefresh={setRefresh} price_type={product.price_type} description={product.description} price={product.price} category={product.category} inventory={product.inventory} img_url={product.img_url} product_id={product.id} />
           <DeleteProduct product_id={product.id} refresh={refresh} setRefresh={setRefresh} />
+            </div>:null)}
+          
         </div>)
         : null
           ))

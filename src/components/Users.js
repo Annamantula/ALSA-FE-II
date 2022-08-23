@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react"
 import { getCustomers } from "../api/customerIndex";
 
 function Users(props) {
-    const [token] = [props.token];
+    const [token] = useState(localStorage.getItem("token") ? localStorage.getItem("token"):"");
     const [customers, setCustomers] = useState([]);
 
-    async function setCustomers() {
-        gottenCustomers = await getCustomers(token);
+    async function setLocalCustomers() {
+        const gottenCustomers = await getCustomers(token);
         if(gottenCustomers){
             await setCustomers(gottenCustomers);
         }
@@ -14,13 +14,13 @@ function Users(props) {
 
 
     useEffect(() => {
-        setCustomers();
+        setLocalCustomers();
     },[])
     
     return (
         <div>
             <h1>Users</h1>
-            {customers.map((customer) => {
+            {(customers[0] ? customers.map((customer) => {
                 return(
                     <div key={customer.id}>
                         <h2>Customer</h2>
@@ -31,11 +31,11 @@ function Users(props) {
                     </div>
 
                 )
-            })}
+            }): <div>
+                <h2>You must be an administrator to access this page.</h2>
+                </div>)}
         </div>
     )
 }
-<Route path="/users" element={<Users />} />
-export { default as Users } from "./Users";
 
 export default Users;

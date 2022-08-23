@@ -1,5 +1,7 @@
 import React  from "react";
 import { useNavigate } from "react-router-dom";
+import { deleteGuestCart,deleteUserCart } from "../api/apiProductIndex";
+import { getUser } from "../api/userIndex";
 
 export default function Checkout() {
     // const[ first_name,setFirst_name] = useState('')
@@ -13,6 +15,18 @@ export default function Checkout() {
 
     async function handleSubmit(event) {
         event.preventDefault();
+        const token = localStorage.getItem("token");
+        if(token){
+          console.log (token , "my tooooken")
+        const user = await getUser (token)
+        const deleted = await deleteUserCart(token, user.id);
+        console.log(deleted);
+        }
+        else {
+          const deleted = await deleteGuestCart(localStorage.getItem("cartCode"));
+          console.log(deleted);
+        }
+        
         alert("Confirmed");
       };
 
@@ -60,7 +74,8 @@ export default function Checkout() {
             ></input>
             <button type="submit"  onClick={(event) => {
               event.preventDefault();
-              nav("/Products");
+              handleSubmit(event);
+              // nav("/Products");
             }}>Confirm</button>
           </div>
         </form>
