@@ -158,6 +158,7 @@ export async function getAllProducts() {
     }
 
     export async function getCartByUserId (token, user_id){
+      console.log(token, "APIid")
       try{
         const response = await fetch(`${APIurl}/cart/users/${user_id}`,{
           method: "GET",

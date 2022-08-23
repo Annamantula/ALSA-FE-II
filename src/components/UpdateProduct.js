@@ -47,7 +47,7 @@ export default function UpdateProduct(props) {
             <div>
               {authToken && isAdmin ? (
                 <>
-                  <h1>Create a New Product</h1>
+                  <h1>Update Product</h1>
                   <form onSubmit={handleSubmit}>
                     <div>
                       <input
@@ -92,7 +92,7 @@ export default function UpdateProduct(props) {
                         onChange={(event) => setImg_url(event.target.value)}
                         placeholder="Picture url"
                       ></input>
-                      <button>Submit New Product</button>
+                      <button>Submit Product Update</button>
                     </div>
                   </form>
                 </>

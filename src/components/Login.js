@@ -21,9 +21,9 @@ function Login(props) {
             localStorage.setItem("token", result.token);
             localStorage.setItem("email", email);
             localStorage.setItem("isAdmin", result.user.isAdmin)
-            if (getCartByUserId(result.id)){
+            if (getCartByUserId(result.token, result.user.id)){
            
-            const cart = await getCartByUserId(result.id)
+            const cart = await getCartByUserId(result.token, result.user.id)
             setCart(cart)
             }else{
            const cart = await createUserCart(result.token)
@@ -40,7 +40,7 @@ function Login(props) {
     return(
         (token ? 
         <div>
-            <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+            <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
             <h3>Logged in as {email}</h3>
             <button onClick={() => {
                 localStorage.removeItem("token");

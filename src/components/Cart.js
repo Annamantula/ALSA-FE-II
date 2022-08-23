@@ -12,7 +12,14 @@ export default function Cart(props) {
     if (token) {
       const user = await getUser(token);
       const gottenCart = await getCartByUserId(token, user.id);
-      setCart(gottenCart);
+      if(!gottenCart) {
+        const createdCart = await createUserCart();
+        setCart(createdCart);
+      }
+      else {
+        setCart(gottenCart);
+      }
+      
     } else {
         const cartCode = localStorage.getItem("cartCode");
         console.log(cartCode, "cartCode");
