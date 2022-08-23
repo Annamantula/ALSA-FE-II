@@ -12,7 +12,7 @@ export default function Products(props) {
         getAllProducts().then((result) => {
           setProducts(result);
         });
-      }, []);
+      }, [refresh]);
 
     
 
@@ -55,7 +55,7 @@ export default function Products(props) {
           {/* <h5 >Inventory:</h5> */}
           <p>{product.inventory}</p>
           <UpdateProduct name={product.name} refresh={refresh} setRefresh={setRefresh} price_type={product.price_type} description={product.description} price={product.price} category={product.category} inventory={product.inventory} img_url={product.img_url} product_id={product.id} />
-          <DeleteProduct product_id={product.id}/>
+          <DeleteProduct product_id={product.id} refresh={refresh} setRefresh={setRefresh} />
         </div>)
         : null
           ))

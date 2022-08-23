@@ -11,22 +11,25 @@ export default function Cart(props) {
     const token = localStorage.getItem("token");
     if (token) {
       const user = await getUser(token);
-      const cart = await getCartByUserId(token, user.id);
-      setCart(cart);
+      const gottenCart = await getCartByUserId(token, user.id);
+      setCart(gottenCart);
     } else {
         const cartCode = localStorage.getItem("cartCode");
+        console.log(cartCode, "cartCode");
         if(!cartCode){
             const code = await createGuestCart();
             console.log(code,"CODE")
-            const cart = await getGuestCartByCode(code.code);
+            const gottenCart = await getGuestCartByCode(code.code);
+            console.log(gottenCart, "cart");
             localStorage.setItem("cartCode", code.code);
-            setCart(cart);
+            setCart(gottenCart);
         }
         else{
-            const cart = await getGuestCartByCode(cartCode);
+            const gottenCart = await getGuestCartByCode(cartCode);
+            console.log(gottenCart, "cart");
+            setCart(gottenCart);
         }
       
-      setCart(cart);
     }
     console.log(cart, "CART");
   }

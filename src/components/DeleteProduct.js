@@ -3,7 +3,7 @@ import { deleteProduct} from "../api/apiProductIndex";
 
 
 export default function  DeleteProduct (props){
-    const [product_id] = [props.product_id];
+    const [product_id, refresh, setRefresh] = [props.product_id, props.refresh, props.setRefresh];
     const [isAdmin, setIsAdmin] = useState(localStorage.getItem("isAdmin") ? localStorage.getItem("isAdmin"):false)
     const authToken = localStorage.getItem("token") ? true : false;
 
@@ -19,6 +19,7 @@ export default function  DeleteProduct (props){
         <button
         onClick={() => {
           deleteProducts();
+          setRefresh(!refresh);
         }}
         type="button">
         Delete Product
