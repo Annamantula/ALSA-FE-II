@@ -87,6 +87,28 @@ export async function getAllProducts() {
       }
     }
 
+    export async function updateUserCartProduct({token, count, user_id, product_id }) {
+      try{
+      const response = await fetch(`${APIurl}/cart/users/${user_id}/${product_id}`,{
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            count: count,
+          })
+        }
+        ) 
+        const result = await response.json();
+        console.log(result , "myyy ressuuuult")
+        return result;
+      }catch(error){
+        console.log(error);
+      }
+    }
+
+
 
     export async function deleteProduct(token, product_id){
       console.log(token, product_id, "HELLO")
