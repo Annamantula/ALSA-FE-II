@@ -1,3 +1,4 @@
+import "./login.css"
 import { useState } from "react"
 import { userLogin } from "../api/loginindex";
 import { useNavigate } from "react-router-dom";
@@ -39,7 +40,7 @@ function Login(props) {
     return(
         (token ? 
         <div>
-            <h2>Login</h2>
+            <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
             <h3>Logged in as {email}</h3>
             <button onClick={() => {
                 localStorage.removeItem("token");
@@ -48,6 +49,7 @@ function Login(props) {
             }}>Log Out</button>
         </div>
         :<div>
+            
             <form className="login" onSubmit={submitHandler}>
                 <h2>Login</h2>
                 <fieldset>
