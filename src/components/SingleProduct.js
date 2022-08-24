@@ -17,6 +17,7 @@ export default function SingleProduct(props) {
   const [product, setProduct] = useState([]);
   const [count, setCount] = useState(1);
   const { product_id } = useParams();
+  const [message, setMessage] = useState(false);
 
 
   useEffect(() => {
@@ -98,6 +99,7 @@ export default function SingleProduct(props) {
       
       }
     }
+    setMessage(true);
   };
 
   return (
@@ -122,9 +124,12 @@ export default function SingleProduct(props) {
       
        <h5 id ="ttl2">In Stock:</h5>
       <p id ="p2">{product.inventory}</p>
+      {(message === true ? <p id="2">Added To Cart</p> : 
       <button className ="btn5" type="add" onClick={addProduct}>
-        Add To Cart
-      </button>
+      Add To Cart
+    </button>
+    )}
+      
       </form>
     </div>
   );

@@ -217,7 +217,7 @@ export async function getAllProducts() {
   export async function createGuestCart () {
     try{
       const response = await fetch(`${APIurl}/cart/guest`, {
-        method: "GET",
+        method: "POST",
       headers: {
         "Content-Type": "application/json",
 

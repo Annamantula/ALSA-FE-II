@@ -4,6 +4,7 @@ import { Products, Login, Register,Home,NavBar, SingleProduct, Cart, Checkout, M
 import { getCartByUserId, getGuestCartByCode, createGuestCart, createUserCart } from "../api/apiProductIndex";
 import { getUser } from "../api/userIndex";
 
+
 const App = () => {
     const [category,setCategory] = useState("");
     const [cart,setCart] = useState({});
