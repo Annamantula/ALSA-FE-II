@@ -39,44 +39,44 @@ export default function CreateProduct() {
               {authToken && isAdmin  ? (
                 <>
                   <h1>Create a New Product</h1>
-                  <form onSubmit={handleSubmit}>
+                  <form className ="login" onSubmit={handleSubmit}>
                     <div>
-                      <input
+                      <input className ="inpt"
                         type="text"
                         onChange={(event) => setName(event.target.value)}
                         placeholder="name"
                       ></input>
-                      <input
+                      <input className ="inpt"
                         type="text"
                         onChange={(event) => setDescription(event.target.value)}
                         placeholder="description"
                       ></input>
-                      <input
+                      <input className ="inpt"
                         type="text"
                         onChange={(event) => setPrice(event.target.value)}
                         placeholder="price"
                       ></input>
-                      <input
+                      <input className ="inpt"
                         type="text"
                         onChange={(event) => setPrice_type(event.target.value)}
                         placeholder="price_type"
                       ></input>
-                      <input
+                      <input className ="inpt"
                         type="text"
                         onChange={(event) => setCategory(event.target.value)}
                         placeholder="category"
                       ></input>
-                      <input
+                      <input className ="inpt"
                         type="text"
                         onChange={(event) => setInventory(event.target.value)}
                         placeholder="inventory"
                       ></input>
-                      <input
+                      <input className ="inpt"
                         type="text"
                         onChange={(event) => setImg_url(event.target.value)}
                         placeholder="Picture url"
                       ></input>
-                      <button>Submit New Product</button>
+                      <button className="btn">Submit New Product</button>
                     </div>
                   </form>
                 </>

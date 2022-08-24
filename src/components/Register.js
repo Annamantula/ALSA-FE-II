@@ -21,30 +21,32 @@ function Register() {
     return(
         (token ? 
         <div>
-            <h2>Register</h2>
-            <h3>Logged in as {email}</h3>
-            <button onClick={() => {
+            <h2 className="r">You are registered</h2>
+            {/* <h3>Logged in as {email}</h3> */}
+            <button className = "btn4" onClick={() => {
                 localStorage.removeItem("token");
                 setToken("");
-            }}>Log Out</button>
+            }
+        }
+            >Log Out</button>
         </div>
         :<div>
             <form className="register" onSubmit={submitHandler}>
-                <h2>Register</h2>
+                <h2 className="rgstr">Register</h2>
                 <fieldset>
                     <label htmlFor="email">
                         Email
                     </label>
-                    <input minLength={1} id="email" type="text" placeholder="email" value={email} onChange={(event) => {setEmail(event.target.value)}}/>
+                    <input className="inpt" minLength={1} id="email" type="text" placeholder="email" value={email} onChange={(event) => {setEmail(event.target.value)}}/>
                 </fieldset>
                 <fieldset>
                 <label htmlFor="password">
                         Password
                     </label>
-                    <input minLength={1} id="password" type="text" placeholder="Password" value={password} onChange={(event) => {setPassword(event.target.value)}}/>
+                    <input className="inpt" minLength={1} id="password" type="text" placeholder="Password" value={password} onChange={(event) => {setPassword(event.target.value)}}/>
                 </fieldset>
                 <fieldset>
-                    <button type="submit">Register</button>
+                    <button className ="btn3" type="submit">Register</button>
                     <p>{message}</p>
                 </fieldset>
             </form>

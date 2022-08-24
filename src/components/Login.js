@@ -40,9 +40,9 @@ function Login(props) {
     return(
         (token ? 
         <div>
-            <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
-            <h3>Logged in as {email}</h3>
-            <button onClick={() => {
+            <h2 className="fw-bold mb-2 text-uppercase"></h2>
+            <h3 className="wlcm">Welcome {email}</h3>
+            <button className = "btn2" onClick={() => {
                 localStorage.removeItem("token");
                 localStorage.removeItem("isAdmin");
                 setToken("");
@@ -51,23 +51,23 @@ function Login(props) {
         :<div>
             
             <form className="login" onSubmit={submitHandler}>
-                <h2>Login</h2>
+                <h2></h2>
                 <fieldset>
-                    <label htmlFor="email">
+                    <label htmlFor="email" className="crdn">
                         Email
                     </label>
-                    <input minLength={1} id="email" type="text" placeholder="email" value={email} onChange={(event) => {setEmail(event.target.value)}}/>
+                    <input className ="inpt" minLength={1} id="email" type="text" placeholder="email" value={email} onChange={(event) => {setEmail(event.target.value)}}/>
                 </fieldset>
                 <fieldset>
-                <label htmlFor="password">
+                <label htmlFor="password" className="crdn">
                         Password
                     </label>
-                    <input minLength={1} id="password" type="text" placeholder="Password" value={password} onChange={(event) => {setPassword(event.target.value)}}/>
+                    <input className ="inpt" minLength={1} id="password" type="text" placeholder="Password" value={password} onChange={(event) => {setPassword(event.target.value)}}/>
                 </fieldset>
                 <fieldset>
-                    <button type="submit">Login</button>
-                    <button type="submit" onClick={registerButton}>Register</button>
-                    <p>{message}</p>
+                    <button className = "btn2" type="submit">Login</button>
+                    <button className = "btn2" type="submit" onClick={registerButton}>Register</button>
+                    <p></p>
                 </fieldset>
             </form>
         </div>
