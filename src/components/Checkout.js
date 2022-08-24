@@ -75,7 +75,7 @@ export default function Checkout() {
             <button className = "btn2" type="submit"  onClick={(event) => {
               event.preventDefault();
               handleSubmit(event);
-              // nav("/Products");
+              nav("/Products");
             }}>Confirm</button>
           </div>
         </form>
