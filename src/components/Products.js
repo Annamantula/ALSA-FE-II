@@ -7,6 +7,7 @@ export default function Products(props) {
   const [refresh, setRefresh] = useState(false);
   const [products, setProducts] = useState([]);
   const [category] = [props.category];
+  const [message, setMessage] = useState(0);
 
     useEffect(() => {
         getAllProducts().then((result) => {

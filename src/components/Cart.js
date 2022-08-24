@@ -7,6 +7,7 @@ import { getUser } from "../api/userIndex";
 export default function Cart(props) {
   const [cart, setCart] = [props.cart, props.setCart];
   const [count,setCount] = useState(0)
+  const [refresh, setRefresh] = useState(false);
   async function getCart() {
     const token = localStorage.getItem("token");
     if (token) {
@@ -42,7 +43,22 @@ export default function Cart(props) {
   }
   useEffect(() => {
     getCart();
-  }, []);
+  }, [refresh]);
+
+  async function handleUpdateProduct({count, cart, product }){
+    console.log("delete")
+    const token = localStorage.getItem("token");
+    if (token){
+      console.log ("iffff")
+     const cart2 =await updateUserCartProduct({token:token, count: count, cart_user_id: cart.user_id, product_id: product.id })
+     console.log(cart2)
+    }else{
+        console.log ("elseeee")
+     const cart2 = await updateCartProduct({ count: count, guest_cart_id: cart.guest_cart_id, cart_product_id: product.cartProductId })
+     console.log(cart2)
+    }
+    setRefresh(!refresh);
+  }
 
 
   return (
@@ -62,20 +78,13 @@ export default function Cart(props) {
                     <input className ="inpt" type="number" min="1" max={product.inventory} placeholder={1} >
                     </input>
                     </label>
-                    <button onClick={() => {
-                      console.log("delete")
-                      const token = localStorage.getItem("token");
-                      if (token){
-                        console.log ("iffff")
-                       updateUserCartProduct({token:token, count: 0, cart_user_id: cart.user_id, product_id: product.id })
-                       
-                      }else{
-                          console.log ("elseeee")
-                       updateCartProduct({ count: 0, guest_cart_id: cart.guest_cart_id, cart_product_id: product.cartProductId })
-                       }
+                    
+                   </form> 
+                   <button onClick={(event) => {
+                      event.preventDefault
+                      handleUpdateProduct({count: 0, cart: cart, product: product });
                        }
                        } className="r2">Delete</button>
-                   </form> 
                   </div> : null)
                   
             );

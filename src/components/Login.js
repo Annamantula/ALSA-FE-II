@@ -7,7 +7,7 @@ import { createUserCart, getCartByUserId } from "../api/apiProductIndex";
 function Login(props) {
     let navigate = useNavigate()
     const [setCart] = [props.setCart]
-    const [email, setEmail] = useState("");
+    const [email, setEmail] = useState((localStorage.getItem("email") ? localStorage.getItem("email") : ""));
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
     const [token, setToken] = useState(localStorage.getItem("token") ? localStorage.getItem("token"):"");
