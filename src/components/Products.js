@@ -43,23 +43,30 @@ export default function Products(props) {
         return (
           ((product.isActive || localStorage.getItem("isAdmin")) && (!category || product.category === category) ? (
           <div key={product.id} >
-            <Link to={`/products/${product.id}`}>Details</Link>
-          <h5>Name:</h5>
-          <p>{product.name}</p>
-          <img src={product.img_url} alt={product.name}/>
-          {/* <h5 >Description:</h5> */}
-          <p>{product.description}</p>
-          <h5 >Price:</h5>
-          <p>{product.price}<span>{product.price_type}</span></p>
-          <h5 >Category:</h5>
-          <p>{product.category}</p>
+           <form className="prdct">
+            <h3 id ="ttl">Category:</h3>
+          <p id ="p1">{product.category}</p>
           {/* <h5 >Inventory:</h5> */}
-          <p>{product.inventory}</p>
+
+            <h3 id ="ttl">Name:</h3>
+          <p id ="p1">{product.name}</p>
+          <img src={product.img_url} alt={product.name}/>
+
+          <h5 id ="ttl3"><Link to={`/products/${product.id}`}>Details:</Link></h5 >
+          
+          {/* <h5 >Description:</h5> */}
+          <p id ="p2">{product.description}</p>
+          <h5 id ="ttl2">Price:</h5>
+          <p id ="p2">{product.price}<span>{product.price_type}</span></p>
+
+          <h5 id ="ttl2">In Stock:</h5>
+          <p id ="p2">{product.inventory}</p>
+          
           {(localStorage.getItem("isAdmin") === "true" ? <div>
           <UpdateProduct name={product.name} refresh={refresh} setRefresh={setRefresh} price_type={product.price_type} description={product.description} price={product.price} category={product.category} inventory={product.inventory} img_url={product.img_url} product_id={product.id} />
           <DeleteProduct product_id={product.id} refresh={refresh} setRefresh={setRefresh} />
             </div>:null)}
-          
+            </form>
         </div>)
         : null
           ))

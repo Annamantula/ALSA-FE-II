@@ -43,59 +43,59 @@ export default function MyAccount() {
 
     return(
         <div>
-        <h1>Create Contact Info</h1>
-        <form onSubmit={handleSubmit}>
+        <h1 className="slogan6">Create Contact Info</h1>
+        <form className="login" onSubmit={handleSubmit}>
           <div>
-            <input
+            <input className="inpt"
               type="text"
               onChange={handOnChange}
               placeholder="name"
             ></input>
-            <input
+            <input className="inpt"
               type="text"
               onChange={(event) => setLast_name(event.target.value)}
               placeholder="last name"
               value={last_name}
             ></input>
-            <input
+            <input className="inpt"
               type="text"
               onChange={(event) => setEmail(event.target.value)}
               placeholder="email"
             ></input>
-            <input
+            <input className="inpt"
               type="text"
               onChange={(event) => setPhone(event.target.value)}
               placeholder="phone number"
             ></input>
-            <input
+            <input className="inpt"
               type="text"
               onChange={(event) => setStreet(event.target.value)}
               placeholder="street"
             ></input>
-            <input
+            <input className="inpt"
               type="text"
               onChange={(event) => setStreet_num(event.target.value)}
               placeholder="street number"
             ></input>
-            <input
+            <input className="inpt"
               type="text"
               onChange={(event) => setApt(event.target.value)}
               placeholder="apt"
             ></input>
-             <input
+             <input className="inpt"
               type="text"
               onChange={(event) => setCity(event.target.value)}
               placeholder="city"
             ></input>
-             <input
+             <input className="inpt"
               type="text"
               onChange={(event) => setZip(event.target.value)}
               placeholder="zip code"
             ></input>
-            <button type="submit"  onClick={(event) => {
+            <button className ="btn6" type="submit"  onClick={(event) => {
               event.preventDefault();
               nav("/checkout");
-            }}>Submit Info</button>
+            }}>Submit</button>
           </div>
         </form>
 </div>

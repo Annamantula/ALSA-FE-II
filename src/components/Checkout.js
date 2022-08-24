@@ -34,45 +34,45 @@ export default function Checkout() {
 
     return(
         <div>
-        <h1>Card Info</h1>
-        <form onSubmit={handleSubmit}>
+        <h1 className="slogan3">Card Info</h1>
+        <form className="login" onSubmit={handleSubmit}>
           <div>
-            <input
+            <input className ="inpt"
               type="text"
             //   onChange={(event) => setFirst_name(event.target.value)}
               placeholder="Name"
             ></input>
-            <input
+            <input className ="inpt"
               type="text"
             //   onChange={(event) => setLast_name(event.target.value)}
               placeholder="Last name"
             ></input>
-            <input
+            <input className ="inpt"
               type="text"
             //   onChange={(event) => setCardNumber(event.target.value)}
               placeholder="Card number"
             ></input>
-            <input
+            <input className ="inpt"
               type="text"
             //   onChange={(event) => setExp(event.target.value)}
               placeholder="Expiration"
             ></input>
-            <input
+            <input className ="inpt"
               type="text"
             //   onChange={(event) => setCvc(event.target.value)}
               placeholder="CVC"
             ></input>
-            <input
+            <input className ="inpt"
               type="text"
             //   onChange={(event) => setCountry(event.target.value)}
               placeholder="Country"
             ></input>
-             <input
+             <input className ="inpt"
               type="text"
             //   onChange={(event) => setZip(event.target.value)}
               placeholder="zip code"
             ></input>
-            <button type="submit"  onClick={(event) => {
+            <button className = "btn2" type="submit"  onClick={(event) => {
               event.preventDefault();
               handleSubmit(event);
               // nav("/Products");

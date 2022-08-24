@@ -47,17 +47,19 @@ export default function Cart(props) {
 
   return (
     <div>
-      <h2>Cart</h2>
+      <h2 className="slogan2">My Cart</h2>
+      <Link className = "chck" to="/checkout/me">Checkout</Link>
 
       {cart.products
         ? cart.products.map((product) => {
             console.log(product);
             return (
                 (product.count !== 0 ? <div key={product.id}>
-                    <h3>{product.name}</h3>
+                  <form className="prdct3">
+                    <h3 id ="ttl">{product.name}</h3>
                     <img src={product.img_url} alt={product.name}/>
-                    <label>Qnty:
-                    <input type="number" min="1" max={product.inventory} placeholder={1} >
+                    <label id ="ttl2">Qnty:
+                    <input className ="inpt" type="number" min="1" max={product.inventory} placeholder={1} >
                     </input>
                     </label>
                     <button onClick={() => {
@@ -68,18 +70,17 @@ export default function Cart(props) {
                        updateUserCartProduct({token:token, count: 0, cart_user_id: cart.user_id, product_id: product.id })
                        
                       }else{
-                       console.log("elseee")
+                          console.log ("elseeee")
                        updateCartProduct({ count: 0, guest_cart_id: cart.guest_cart_id, cart_product_id: product.cartProductId })
                        }
                        }
-                       }>Delete</button>
-                    
+                       } className="r2">Delete</button>
+                   </form> 
                   </div> : null)
                   
             );
           })
         : null}
-        <Link to="/checkout/me">Checkout</Link>
     </div>
   );
 }
