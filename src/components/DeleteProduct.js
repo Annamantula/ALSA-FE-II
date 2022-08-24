@@ -16,7 +16,7 @@ export default function  DeleteProduct (props){
     return (
         <div>
             {authToken && isAdmin ? (
-        <button
+        <button className = "btn2"
         onClick={() => {
           deleteProducts();
           setRefresh(!refresh);

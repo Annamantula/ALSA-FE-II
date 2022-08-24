@@ -50,49 +50,49 @@ export default function UpdateProduct(props) {
                   <h1>Update Product</h1>
                   <form onSubmit={handleSubmit}>
                     <div>
-                      <input
+                      <input className ="inpt"
                         type="text"
                         value={name}
                         onChange={(event) => setName(event.target.value)}
                         placeholder="name"
                         ></input>
-                      <input
+                      <input className ="inpt"
                         type="text"
                         value={description}
                         onChange={(event) => setDescription(event.target.value)}
                         placeholder="description"
                         ></input>
-                      <input
+                      <input className ="inpt"
                         type="text"
                         value={price}
                         onChange={(event) => setPrice(event.target.value)}
                         placeholder="price"
                         ></input>
-                      <input
+                      <input className ="inpt"
                         type="text"
                         value={price_type}
                         onChange={(event) => setPrice_type(event.target.value)}
                         placeholder="price_type"
                         ></input>
-                      <input
+                      <input className ="inpt"
                         type="text"
                         value={category}
                         onChange={(event) => setCategory(event.target.value)}
                         placeholder="category"
                       ></input>
-                      <input
+                      <input className ="inpt"
                         type="text"
                         value={inventory}
                         onChange={(event) => setInventory(event.target.value)}
                         placeholder="inventory"
                       ></input>
-                      <input
+                      <input className ="inpt"
                         type="text"
                         value={img_url}
                         onChange={(event) => setImg_url(event.target.value)}
                         placeholder="Picture url"
                       ></input>
-                      <button>Submit Product Update</button>
+                      <button className = "btn2">Submit Product Update</button>
                     </div>
                   </form>
                 </>

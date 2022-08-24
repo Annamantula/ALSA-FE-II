@@ -50,7 +50,7 @@ export default function Cart(props) {
     const token = localStorage.getItem("token");
     if (token){
       console.log ("iffff")
-     const cart2 =await updateUserCartProduct({token:token, count: count, cart_user_id: cart.user_id, product_id: product.id })
+     const cart2 =await updateUserCartProduct({token:token, count: count, cart_user_id: cart.user_id, product_id: product.cartProductId})
      console.log(cart2)
     }else{
         console.log ("elseeee")
@@ -62,7 +62,7 @@ export default function Cart(props) {
 
 
   return (
-    <div>
+    <div  >
       <h2 className="slogan2">My Cart</h2>
       <Link className = "chck" to="/checkout/me">Checkout</Link>
 
@@ -71,6 +71,7 @@ export default function Cart(props) {
             console.log(product);
             return (
                 (product.count !== 0 ? <div key={product.id}>
+                  <div className="r3">
                   <form className="prdct3">
                     <h3 id ="ttl">{product.name}</h3>
                     <img src={product.img_url} alt={product.name}/>
@@ -85,6 +86,7 @@ export default function Cart(props) {
                       handleUpdateProduct({count: 0, cart: cart, product: product });
                        }
                        } className="r2">Delete</button>
+                      </div>
                   </div> : null)
                   
             );

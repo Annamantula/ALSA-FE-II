@@ -22,12 +22,12 @@ function Users(props) {
             <h1>Users</h1>
             {(customers[0] ? customers.map((customer) => {
                 return(
-                    <div key={customer.id}>
-                        <h2>Customer</h2>
-                        <h5>Name:</h5>
-                        <p>{customer.last_name},{customer.first_name}</p>
-                        <h5>Email:</h5>
-                        <p>{customer.email}</p>
+                    <div className="prdct" key={customer.id}>
+                        <h2 id="ttl">Customer</h2>
+                        <h5 id="ttl">Name:</h5>
+                        <p id ="p1">{customer.last_name},{customer.first_name}</p>
+                        <h5 id="ttl">Email:</h5>
+                        <p id ="p1">{customer.email}</p>
                     </div>
 
                 )
