@@ -57,14 +57,14 @@ export default function Products(props) {
         return (
           ((product.isActive || localStorage.getItem("isAdmin")) && (!category || product.category === category) ? (
           <div className="prdct" key={product.id} >
-           <form >
+           <form  className="frm" >
             <h3 id ="ttl">Category:</h3>
           <p id ="p1">{product.category}</p>
           {/* <h5 >Inventory:</h5> */}
 
             <h3 id ="ttl">Name:</h3>
           <p id ="p1">{product.name}</p>
-          <img src={product.img_url} alt={product.name}/>
+          <img className = "img2" src={product.img_url} alt={product.name}/>
 
           <h5 id ="ttl3"><Link to={`/products/${product.id}`}>Details:</Link></h5 >
           

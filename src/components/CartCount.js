@@ -52,16 +52,16 @@ export default function CartCount(props){
         <div>
             <h5 id ="ttl2">Number In Cart: {count}</h5>
             <div>
-            <button onClick={(event) => {
+            <button className = "inpt2" onClick={(event) => {
                 event.preventDefault();
                 addOne();
             }
-            }>+1</button>
-            <button onClick={(event) => {
+            }>+</button>
+            <button className = "inpt3" onClick={(event) => {
                 event.preventDefault();
                 minusOne();
             }
-            }>-1</button>
+            }>-</button>
             </div>
             
         </div>

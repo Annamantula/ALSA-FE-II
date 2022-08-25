@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from "react"
 import { Route, Link, Routes } from "react-router-dom";
-import { Products, Login, Register,Home,NavBar, SingleProduct, Cart, Checkout, MyAccount, Users } from "./index";
-import { getCartByUserId, getGuestCartByCode, createGuestCart, createUserCart } from "../api/apiProductIndex";
+import { Products, Login, Register,Home,NavBar, SingleProduct, Cart, Checkout, MyAccount, Users, Profile  } from "./index";
+import { getCartByUserId, getGuestCartByCode, createGuestCart, createUserCart} from "../api/apiProductIndex";
 import { getUser } from "../api/userIndex";
 
 
@@ -56,17 +56,21 @@ const App = () => {
            <Routes>
            <Route path="/" element={<Home />} />
             <Route path="/products" element={<Products cart={cart} setCart={setCart} category={category} refresh={refresh} setRefresh={setRefresh}/>} />
-            <Route path="/products/:product_id" element={<SingleProduct cart={cart} setCart={setCart}/>} />
+            <Route path="/products/:product_id" element={<SingleProduct cart={cart} refresh ={refresh} setRefresh = {setRefresh} setCart={setCart}/>} />
             <Route path="/login" element={<Login setCart={setCart}/>} />
             <Route path="/register" element={<Register />} />
             <Route path="/cart" element={<Cart cart={cart} setCart={setCart} refresh={refresh} setRefresh={setRefresh}/> } />
             <Route path="/checkout/me" element={<MyAccount />} />
             <Route path="/checkout/" element={<Checkout />} />
             <Route path="/users" element={<Users />} />
+            <Route path= "/me" element={(localStorage.getItem("token")? <Profile/>:null)} />
             </Routes>
+           
         </div>
+       
     )
 
 }
+
 
 export default App;

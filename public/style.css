@@ -326,6 +326,12 @@ header{
     height:50px;
     padding: 5px;
 }
+.img2{
+    margin-left:5%;
+    color: rgb(6, 81, 93);
+    width: 450px;
+    padding: 5px;
+}
 .login{
     padding-left: 8px;
     margin-top: 5%;
@@ -516,6 +522,7 @@ header{
     margin-left: 8px;
     margin-right: 8px;
     color: #1d446b;
+    opacity: 0.8;
     font-size: 38px;
     font-weight: bolder;
 
@@ -530,6 +537,30 @@ header{
     /* margin-left: 10px; */
     padding: 2px;
     padding-left: 10px;
+}
+.inpt2{
+    border-radius:10px;
+    box-shadow: inset;
+    padding: 2px;
+    margin-left: 10px;
+    padding-left: 8px;
+    padding-right: 8px;
+    background-color: #eab799;
+    font-size: 24px;
+    font-weight: bolder;
+    color:#144c83;
+}
+.inpt3{
+    border-radius:10px;
+    box-shadow: inset;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    background-color: #eab799;
+    font-size: 24px;
+    font-weight: bolder;
+    color:#144c83;
 }
 .rgstr{
     color: white;
