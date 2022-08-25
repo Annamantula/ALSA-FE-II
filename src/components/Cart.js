@@ -14,7 +14,7 @@ export default function Cart(props) {
       const user = await getUser(token);
       const gottenCart = await getCartByUserId(token, user.id);
       if(!gottenCart) {
-        const createdCart = await createUserCart();
+        const createdCart = await createUserCart(token);
         setCart(createdCart);
       }
       else {
