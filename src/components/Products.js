@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom";
 import { getAllProducts } from "../api/apiProductIndex";
-import { UpdateProduct, DeleteProduct, CreateProduct } from "./index"
+import { UpdateProduct, DeleteProduct, CreateProduct, ReactivateProduct } from "./index"
 
 export default function Products(props) {
   const [refresh, setRefresh] = useState(false);
@@ -43,8 +43,8 @@ export default function Products(props) {
         {products.map((product) => {
         return (
           ((product.isActive || localStorage.getItem("isAdmin")) && (!category || product.category === category) ? (
-          <div key={product.id} >
-           <form className="prdct">
+          <div className="prdct" key={product.id} >
+           <form >
             <h3 id ="ttl">Category:</h3>
           <p id ="p1">{product.category}</p>
           {/* <h5 >Inventory:</h5> */}
@@ -63,11 +63,18 @@ export default function Products(props) {
           <h5 id ="ttl2">In Stock:</h5>
           <p id ="p2">{product.inventory}</p>
           
-          {(localStorage.getItem("isAdmin") === "true" ? <div>
-          <UpdateProduct name={product.name} refresh={refresh} setRefresh={setRefresh} price_type={product.price_type} description={product.description} price={product.price} category={product.category} inventory={product.inventory} img_url={product.img_url} product_id={product.id} />
-          <DeleteProduct product_id={product.id} refresh={refresh} setRefresh={setRefresh} />
-            </div>:null)}
+          
             </form>
+            {(localStorage.getItem("isAdmin") === "true" ? <div>
+              <h5 id = "tt12">Is Active: {product.isActive}</h5>
+              <p id = "p2">{`${product.isActive}`}</p>
+          <UpdateProduct name={product.name} refresh={refresh} setRefresh={setRefresh} price_type={product.price_type} description={product.description} price={product.price} category={product.category} inventory={product.inventory} img_url={product.img_url} isActive={product.isActive} product_id={product.id} />
+          {product.isActive === true ? 
+          <DeleteProduct product_id={product.id} refresh={refresh} setRefresh={setRefresh} />
+        : <ReactivateProduct refresh={refresh} setRefresh={setRefresh}  product_id={product.id} />
+        }
+          
+            </div>:null)}
         </div>)
         : null
           ))

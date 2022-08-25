@@ -10,6 +10,7 @@ export default function UpdateProduct(props) {
   const [category, setCategory] = useState(props.category ? props.category : "");
   const [inventory, setInventory] = useState(props.inventory ? props.inventory : 0);
   const [img_url, setImg_url] = useState(props.img_url ? props.img_url : "");
+  const [isActive] = [props.isActive];
   const [isAdmin, setIsAdmin] = useState(localStorage.getItem("isAdmin") ? localStorage.getItem("isAdmin"):false)
 
   const authToken = localStorage.getItem("token") ? true : false;
@@ -26,7 +27,8 @@ export default function UpdateProduct(props) {
       price_type: price_type,
       category: category,
       inventory: inventory,
-      img_url: img_url
+      img_url: img_url,
+      isActive: isActive
     }
     );
     setRefresh(!refresh);
