@@ -69,7 +69,7 @@ export default function Products(props) {
           <h5 id ="ttl3"><Link to={`/products/${product.id}`}>Details:</Link></h5 >
           
           {/* <h5 >Description:</h5> */}
-          <p id ="p2">{product.description}</p>
+          {/* <p id ="p2">{product.description}</p> */}
           <h5 id ="ttl2">Price:</h5>
           <p id ="p2">{product.price}<span>{product.price_type}</span></p>
 
@@ -77,8 +77,6 @@ export default function Products(props) {
           <p id ="p2">{product.inventory}</p>
           
           {(cartProductIds.includes(product.id) ? <div>
-            <h5 id="ttl2">In Cart: </h5>
-          <p  id = "p2">{cart.products[cartProductIds.indexOf(product.id)].count}</p>
           <CartCount 
           count={cart.products[cartProductIds.indexOf(product.id)].count}
             cartIndex={cartProductIds.indexOf(product.id)} 
