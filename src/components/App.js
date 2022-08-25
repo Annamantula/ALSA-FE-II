@@ -7,7 +7,8 @@ import { getUser } from "../api/userIndex";
 
 const App = () => {
     const [category,setCategory] = useState("");
-    const [cart,setCart] = useState({});
+    const [cart, setCart] = useState({});
+    const [refresh, setRefresh] = useState(false);
     async function getCart() {
       const token = localStorage.getItem("token");
       if (token) {
@@ -45,7 +46,7 @@ const App = () => {
     }
     useEffect(() => {
       getCart();
-    }, []);
+    }, [refresh]);
     
 
 
@@ -54,11 +55,11 @@ const App = () => {
            <NavBar setCategory={setCategory}/>
            <Routes>
            <Route path="/" element={<Home />} />
-            <Route path="/products" element={<Products category={category}/>} />
-            <Route path="/products/:product_id" element={<SingleProduct setCart={setCart}/>} />
+            <Route path="/products" element={<Products cart={cart} setCart={setCart} category={category} refresh={refresh} setRefresh={setRefresh}/>} />
+            <Route path="/products/:product_id" element={<SingleProduct cart={cart} setCart={setCart}/>} />
             <Route path="/login" element={<Login setCart={setCart}/>} />
             <Route path="/register" element={<Register />} />
-            <Route path="/cart" element={<Cart cart={cart} setCart={setCart}/>} />
+            <Route path="/cart" element={<Cart cart={cart} setCart={setCart} refresh={refresh} setRefresh={setRefresh}/> } />
             <Route path="/checkout/me" element={<MyAccount />} />
             <Route path="/checkout/" element={<Checkout />} />
             <Route path="/users" element={<Users />} />

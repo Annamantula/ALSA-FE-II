@@ -1,19 +1,32 @@
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom";
-import { getAllProducts } from "../api/apiProductIndex";
+import { createGuestCart, createUserCart, getAllProducts, getCartByUserId, getGuestCartByCode } from "../api/apiProductIndex";
+import { getUser } from "../api/userIndex";
 import { UpdateProduct, DeleteProduct, CreateProduct, ReactivateProduct } from "./index"
 
 export default function Products(props) {
-  const [refresh, setRefresh] = useState(false);
+  const [refresh, setRefresh] = [props.refresh, props.setRefresh];
   const [products, setProducts] = useState([]);
   const [category] = [props.category];
+  const [cart, setCart] = [props.cart, props.setCart];
   const [message, setMessage] = useState(0);
+  const [cartProductIds, setCartProductIds] = useState([]);
+
+  
 
     useEffect(() => {
+      
         getAllProducts().then((result) => {
+          if (cart.products){
+            const cartProducts = cart.products.map((product) => {
+              return product.id;
+            })
+            setCartProductIds(cartProducts);
+          }
           setProducts(result);
-        });
-      }, [refresh]);
+        })
+        console.log(cartProductIds, "productIds");
+      }, [refresh, cart]);
 
     
 
@@ -38,9 +51,10 @@ export default function Products(props) {
                 event.preventDefault() 
             setCategory("")}}>All Categories</button>
         </div> */}
-        {(localStorage.getItem("isAdmin") === "true" ? <CreateProduct />:null)}
+        {(localStorage.getItem("isAdmin") === "true" ? <CreateProduct refresh={refresh} setRefresh={setRefresh} />:null)}
         
         {products.map((product) => {
+          console.log(cartProductIds.includes(product.id))
         return (
           ((product.isActive || localStorage.getItem("isAdmin")) && (!category || product.category === category) ? (
           <div className="prdct" key={product.id} >
@@ -62,11 +76,10 @@ export default function Products(props) {
 
           <h5 id ="ttl2">In Stock:</h5>
           <p id ="p2">{product.inventory}</p>
-          
-          
+          {(cartProductIds.includes(product.id) ? <div><h5 id="ttl2">In Cart: </h5><p  id = "p2">{cart.products[cartProductIds.indexOf(product.id)].count}</p></div>: null)}
             </form>
             {(localStorage.getItem("isAdmin") === "true" ? <div>
-              <h5 id = "tt12">Is Active: {product.isActive}</h5>
+              <h5 id = "ttl2">Is Active: {product.isActive}</h5>
               <p id = "p2">{`${product.isActive}`}</p>
           <UpdateProduct name={product.name} refresh={refresh} setRefresh={setRefresh} price_type={product.price_type} description={product.description} price={product.price} category={product.category} inventory={product.inventory} img_url={product.img_url} isActive={product.isActive} product_id={product.id} />
           {product.isActive === true ? 
