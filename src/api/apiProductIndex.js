@@ -88,8 +88,9 @@ export async function getAllProducts() {
       }
     }
 
-    export async function updateUserCartProduct({token, count, user_id, product_id }) {
+    export async function updateUserCartProduct({token, count, user_id, product_id, cart_product_id }) {
       try{
+        console.log(cart_product_id, product_id)
       const response = await fetch(`${APIurl}/cart/users/${user_id}/${product_id}`,{
           method: "PATCH",
           headers: {
@@ -98,6 +99,7 @@ export async function getAllProducts() {
           },
           body: JSON.stringify({
             count: count,
+            cart_product_id: cart_product_id
           })
         }
         ) 
