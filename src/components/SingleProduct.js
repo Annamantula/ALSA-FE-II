@@ -14,7 +14,7 @@ import { getUser } from "../api/userIndex";
 import CartCount from "./CartCount";
 
 export default function SingleProduct(props) {
-  const [setCart, cart,refresh, setRefresh] = [props.setCart, props.cart, props.refresh, props.setRefresh ];
+  const [setCart, cart, refresh, setRefresh] = [props.setCart, props.cart, props.refresh, props.setRefresh];
   const [product, setProduct] = useState([]);
   const [count, setCount] = useState(1);
   const { product_id } = useParams();
@@ -23,13 +23,12 @@ export default function SingleProduct(props) {
 
   useEffect(() => {
     getProductById(product_id).then((result) => {
-      if (cart.products){
+      if (cart.products) {
         const cartProducts = cart.products.map((product) => {
           return product.id;
         })
         setCartProductIds(cartProducts);
       }
-      console.log(result);
       setProduct(result);
     });
   }, []);
@@ -37,73 +36,54 @@ export default function SingleProduct(props) {
   const addProduct = async (event) => {
     event.preventDefault();
     const cartCode = localStorage.getItem("cartCode");
-    console.log(cartCode, "cartCode");
     const token = localStorage.getItem("token");
     if (token) {
       const user = await getUser(token);
-      console.log(user, "user");
       const cart = await getCartByUserId(token, user.id);
       if (cart) {
         setCart(cart);
         const cartProduct = await cart.products.filter((product) => {
           return product.id === product_id
         });
-        if(cartProduct[0]) {
-          console.log(cart.guest_cart_id, "HELLOOOO");
-          console.log(cartProduct, "BYEEEE");
-          const updateProd = await updateCartProduct({count: 1, guest_cart_id: cart.guest_cart_id, cart_product_id: cartProduct[0].cartProductId});
+        if (cartProduct[0]) {
+          const updateProd = await updateCartProduct({ count: 1, guest_cart_id: cart.guest_cart_id, cart_product_id: cartProduct[0].cartProductId });
         } else {
           const addProd = await addProductToCart(product_id, cart.id, count);
-          console.log(addProd, "addProd");
         }
       } else {
         const cart = await createUserCart();
         setCart(cart);
-        if(cartProduct[0]) {
-          console.log(cart.guest_cart_id, "HELLOOOO");
-          console.log(cartProduct, "BYEEEE");
-          const updateProd = await updateCartProduct({count: 1, guest_cart_id: cart.guest_cart_id, cart_product_id: cartProduct[0].cartProductId});
+        if (cartProduct[0]) {
+          const updateProd = await updateCartProduct({ count: 1, guest_cart_id: cart.guest_cart_id, cart_product_id: cartProduct[0].cartProductId });
         } else {
           const addProd = await addProductToCart(product_id, cart.id, count);
-          console.log(addProd, "addProd");
         }
       }
     } else {
       if (cartCode) {
         const cart = await getGuestCartByCode(cartCode);
         setCart(cart);
-        console.log(cart, "CARTTTT");
         const cartProduct = await cart.products.filter((product) => {
-          console.log(product.id == product_id, "TRIPLE EQUALS");
           return product.id == product_id
         });
-        if(cartProduct[0]) {
-          console.log(cart.guest_cart_id, "HELLOOOO");
-          console.log(cartProduct, "BYEEEE");
-          const updateProd = await updateCartProduct({count: 1, guest_cart_id: cart.guest_cart_id, cart_product_id: cartProduct[0].cartProductId});
+        if (cartProduct[0]) {
+          const updateProd = await updateCartProduct({ count: 1, guest_cart_id: cart.guest_cart_id, cart_product_id: cartProduct[0].cartProductId });
         } else {
           const addProd = await addProductToCart(product_id, cart.id, count);
-          console.log(addProd, "addProd");
         }
       } else {
         const code = await createGuestCart();
-        console.log(code,"CODE")
         const cart = await getGuestCartByCode(code.code);
         localStorage.setItem("cartCode", code.code);
         setCart(cart);
         const cartProduct = await cart.products.filter((product) => {
           return product.id === product_id
         });
-        console.log(cartProduct)
-        if(cartProduct[0]) {
-          console.log(cart.guest_cart_id, "HELLOOOO");
-          console.log(cartProduct, "BYEEEE");
-          const updateProd = await updateCartProduct({count: 1, guest_cart_id: cart.guest_cart_id, cart_product_id: cartProduct[0].cartProductId});
+        if (cartProduct[0]) {
+          const updateProd = await updateCartProduct({ count: 1, guest_cart_id: cart.guest_cart_id, cart_product_id: cartProduct[0].cartProductId });
         } else {
           const addProd = await addProductToCart(product_id, cart.id, count);
-          console.log(addProd, "addProd");
         }
-      
       }
     }
     setMessage(true);
@@ -111,44 +91,37 @@ export default function SingleProduct(props) {
 
   return (
     <div key={product.id}>
-      
+
       <form className="prdct2">
-      <h5 id ="ttl">Category:</h5>
-      <p id ="p1">{product.category}</p>
+        <h5 id="ttl">Category:</h5>
+        <p id="p1">{product.category}</p>
 
-      <h5 id ="ttl">Name:</h5>
-      <p id ="p1">{product.name}</p>
+        <h5 id="ttl">Name:</h5>
+        <p id="p1">{product.name}</p>
 
-      <img src={product.img_url} alt={product.name} />
-      <h5 id ="ttl3">Description:</h5>
-      <p id ="p2">{product.description}</p>
+        <img src={product.img_url} alt={product.name} />
+        <h5 id="ttl3">Description:</h5>
+        <p id="p2">{product.description}</p>
 
-      <h5 id ="ttl2">Price:</h5>
-      <p id ="p2">
-        {product.price}
-        <span>{product.price_type}</span>
-      </p>
-      
-       <h5 id ="ttl2">In Stock:</h5>
-      <p id ="p2">{product.inventory}</p>
-      {/* {(message === true ? <p id="2">Added To Cart</p> :  */}
-    {/* //   <button className ="btn5" type="add" onClick={addProduct}>
-    //   Add To Cart
-    // </button>
-    
+        <h5 id="ttl2">Price:</h5>
+        <p id="p2">
+          {product.price}
+          <span>{product.price_type}</span>
+        </p>
 
-    )} */}
-     {(cartProductIds.includes(product.id) ? <div>
-          <CartCount 
-          count={cart.products[cartProductIds.indexOf(product.id)].count}
-            cartIndex={cartProductIds.indexOf(product.id)} 
-            cart={cart} 
-            refresh={refresh} 
-            setRefresh={setRefresh} 
-            product_id={product.id}/>
-          
-          </div>: <CartCount count={0} cart={cart} refresh={refresh} setRefresh={setRefresh} product_id={product.id}/>)}
-      
+        <h5 id="ttl2">In Stock:</h5>
+        <p id="p2">{product.inventory}</p>
+        {(cartProductIds.includes(product.id) ? <div>
+          <CartCount
+            count={cart.products[cartProductIds.indexOf(product.id)].count}
+            cartIndex={cartProductIds.indexOf(product.id)}
+            cart={cart}
+            refresh={refresh}
+            setRefresh={setRefresh}
+            product_id={product.id} />
+
+        </div> : <CartCount count={0} cart={cart} refresh={refresh} setRefresh={setRefresh} product_id={product.id} />)}
+
       </form>
     </div>
   );
