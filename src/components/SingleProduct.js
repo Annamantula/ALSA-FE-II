@@ -11,17 +11,24 @@ import {
   updateCartProduct,
 } from "../api/apiProductIndex";
 import { getUser } from "../api/userIndex";
+import CartCount from "./CartCount";
 
 export default function SingleProduct(props) {
-  const [setCart] = [props.setCart];
+  const [setCart, cart,refresh, setRefresh] = [props.setCart, props.cart, props.refresh, props.setRefresh ];
   const [product, setProduct] = useState([]);
   const [count, setCount] = useState(1);
   const { product_id } = useParams();
   const [message, setMessage] = useState(false);
-
+  const [cartProductIds, setCartProductIds] = useState([]);
 
   useEffect(() => {
     getProductById(product_id).then((result) => {
+      if (cart.products){
+        const cartProducts = cart.products.map((product) => {
+          return product.id;
+        })
+        setCartProductIds(cartProducts);
+      }
       console.log(result);
       setProduct(result);
     });
@@ -124,11 +131,23 @@ export default function SingleProduct(props) {
       
        <h5 id ="ttl2">In Stock:</h5>
       <p id ="p2">{product.inventory}</p>
-      {(message === true ? <p id="2">Added To Cart</p> : 
-      <button className ="btn5" type="add" onClick={addProduct}>
-      Add To Cart
-    </button>
-    )}
+      {/* {(message === true ? <p id="2">Added To Cart</p> :  */}
+    {/* //   <button className ="btn5" type="add" onClick={addProduct}>
+    //   Add To Cart
+    // </button>
+    
+
+    )} */}
+     {(cartProductIds.includes(product.id) ? <div>
+          <CartCount 
+          count={cart.products[cartProductIds.indexOf(product.id)].count}
+            cartIndex={cartProductIds.indexOf(product.id)} 
+            cart={cart} 
+            refresh={refresh} 
+            setRefresh={setRefresh} 
+            product_id={product.id}/>
+          
+          </div>: <CartCount count={0} cart={cart} refresh={refresh} setRefresh={setRefresh} product_id={product.id}/>)}
       
       </form>
     </div>

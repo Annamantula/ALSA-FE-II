@@ -14,3 +14,4 @@ export { default as MyAccount } from "./MyAccount";
 export { default as Users } from "./Users";
 export { default as ReactivateProduct } from "./ReactivateProduct";
 export { default as CartCount } from "./CartCount";
+export { default as Profile } from "./Profile";
