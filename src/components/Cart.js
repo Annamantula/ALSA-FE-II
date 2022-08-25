@@ -36,7 +36,7 @@ export default function Cart(props) {
       <h2 className="slogan2">My Cart</h2>
       <Link className = "chck" to="/checkout/me">Checkout</Link>
 
-      {cart.products
+      {cart.products.length > 0
         ? cart.products.map((product, index) => {
             console.log(product);
             return (
