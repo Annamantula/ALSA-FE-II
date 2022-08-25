@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom";
 import { createGuestCart, createUserCart, getAllProducts, getCartByUserId, getGuestCartByCode } from "../api/apiProductIndex";
 import { getUser } from "../api/userIndex";
-import { UpdateProduct, DeleteProduct, CreateProduct, ReactivateProduct } from "./index"
+import { UpdateProduct, DeleteProduct, CreateProduct, ReactivateProduct, CartCount } from "./index"
 
 export default function Products(props) {
   const [refresh, setRefresh] = [props.refresh, props.setRefresh];
@@ -54,7 +54,6 @@ export default function Products(props) {
         {(localStorage.getItem("isAdmin") === "true" ? <CreateProduct refresh={refresh} setRefresh={setRefresh} />:null)}
         
         {products.map((product) => {
-          console.log(cartProductIds.includes(product.id))
         return (
           ((product.isActive || localStorage.getItem("isAdmin")) && (!category || product.category === category) ? (
           <div className="prdct" key={product.id} >
@@ -76,7 +75,19 @@ export default function Products(props) {
 
           <h5 id ="ttl2">In Stock:</h5>
           <p id ="p2">{product.inventory}</p>
-          {(cartProductIds.includes(product.id) ? <div><h5 id="ttl2">In Cart: </h5><p  id = "p2">{cart.products[cartProductIds.indexOf(product.id)].count}</p></div>: null)}
+          
+          {(cartProductIds.includes(product.id) ? <div>
+            <h5 id="ttl2">In Cart: </h5>
+          <p  id = "p2">{cart.products[cartProductIds.indexOf(product.id)].count}</p>
+          <CartCount 
+          count={cart.products[cartProductIds.indexOf(product.id)].count}
+            cartIndex={cartProductIds.indexOf(product.id)} 
+            cart={cart} 
+            refresh={refresh} 
+            setRefresh={setRefresh} 
+            product_id={product.id}/>
+          
+          </div>: <CartCount count={0} cart={cart} refresh={refresh} setRefresh={setRefresh} product_id={product.id}/>)}
             </form>
             {(localStorage.getItem("isAdmin") === "true" ? <div>
               <h5 id = "ttl2">Is Active: {product.isActive}</h5>

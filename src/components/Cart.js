@@ -2,6 +2,7 @@ import { useEffect,useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getCartByUserId, getGuestCartByCode, createGuestCart, updateCartProduct,updateUserCartProduct,createUserCart } from "../api/apiProductIndex";
 import { getUser } from "../api/userIndex";
+import { CartCount } from "./index";
 
 
 export default function Cart(props) {
@@ -36,25 +37,27 @@ export default function Cart(props) {
       <Link className = "chck" to="/checkout/me">Checkout</Link>
 
       {cart.products
-        ? cart.products.map((product) => {
+        ? cart.products.map((product, index) => {
             console.log(product);
             return (
                 (product.count !== 0 ? <div key={product.id}>
                   <div className="r3">
-                  <form className="prdct3">
+                  <div className="prdct3">
                     <h3 id ="ttl">{product.name}</h3>
+                    <div>
                     <img src={product.img_url} alt={product.name}/>
-                    <label id ="ttl2">Qnty:
-                    <input className ="inpt" type="number" min="1" max={product.inventory} placeholder={1} >
-                    </input>
-                    </label>
+                    </div>
+                    <p>${product.price}</p>
+                    <CartCount 
+          count={product.count}
+            cartIndex={index} 
+            cart={cart} 
+            refresh={refresh} 
+            setRefresh={setRefresh} 
+            product_id={product.id}/>
                     
-                   </form> 
-                   <button onClick={(event) => {
-                      event.preventDefault
-                      handleUpdateProduct({count: 0, cart: cart, product: product });
-                       }
-                       } className="r2">Delete</button>
+                    
+                   </div> 
                       </div>
                   </div> : null)
                   
