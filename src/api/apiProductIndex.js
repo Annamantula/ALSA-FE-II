@@ -42,7 +42,7 @@ export async function getAllProducts() {
   }
 
 
-    export async function updateProduct({token, name, description, price, price_type, category, inventory, img_url,product_id }) {
+    export async function updateProduct({token, name, description, price, price_type, category, inventory, img_url, product_id, isActive }) {
       try{
       const response = await fetch(`${APIurl}/products/${product_id}`,{
           method: "PATCH",
@@ -58,6 +58,7 @@ export async function getAllProducts() {
            category:category,
            inventory:inventory,
            img_url:img_url,
+           isActive:isActive
           })
         }
         ) 
@@ -121,9 +122,28 @@ export async function getAllProducts() {
               }
           })
           const result = await response.json();
+          console.log(result, "Result")
           return result;
       }catch (error){
           console.error("Isssue deleting product", error)
+      }
+    }
+
+    export async function activateProduct(token, product_id){
+      console.log(token, product_id, "HELLO")
+      try{
+          const response = await fetch(`${APIurl}/products/${product_id}`, {
+              method: "POST",
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`
+              }
+          })
+          const result = await response.json();
+          console.log(result, "Result")
+          return result;
+      }catch (error){
+          console.error("Issue activating product", error)
       }
     }
 

@@ -11,6 +11,7 @@ export default function  DeleteProduct (props){
         const token = localStorage.getItem("token");
         console.log(token, product_id, "NEWWWWW")
         const erase = await deleteProduct(token, product_id);
+        setRefresh(!refresh);
         return erase;
       }
     return (
@@ -19,7 +20,6 @@ export default function  DeleteProduct (props){
         <button className = "btn2"
         onClick={() => {
           deleteProducts();
-          setRefresh(!refresh);
         }}
         type="button">
         Delete Product
@@ -30,4 +30,3 @@ export default function  DeleteProduct (props){
       </div>
     )
 }
-
