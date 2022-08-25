@@ -32,13 +32,7 @@ export default function UpdateProduct(props) {
     }
     );
     setRefresh(!refresh);
-    // setName("");
-    // setDescription("");
-    // setPrice(0);
-    // setPrice_type("");
-    // setCategory("");
-    // setInventory(0);
-    // setImg_url("");
+    
     return updatedProduct;
   };
   return (
