@@ -14,8 +14,9 @@ const App = () => {
         const user = await getUser(token);
         console.log(token, "user")
         const gottenCart = await getCartByUserId(token, user.id);
-        if(!gottenCart) {
-          const createdCart = await createUserCart();
+        console.log(gottenCart, "gottenCart")
+        if(!gottenCart.id) {
+          const createdCart = await createUserCart(token);
           setCart(createdCart);
         }
         else {

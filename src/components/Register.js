@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { createUserCart } from "../api/apiProductIndex";
 import { userRegister } from "../api/loginindex";
 
 function Register() {
@@ -15,6 +16,7 @@ function Register() {
             setToken(result.token);
             localStorage.setItem("token", result.token);
             localStorage.setItem("email", email);
+            await createUserCart(result.token);
         }
     }
 
