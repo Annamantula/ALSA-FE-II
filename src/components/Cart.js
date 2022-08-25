@@ -7,42 +7,11 @@ import { getUser } from "../api/userIndex";
 export default function Cart(props) {
   const [cart, setCart] = [props.cart, props.setCart];
   const [count,setCount] = useState(0)
-  const [refresh, setRefresh] = useState(false);
-  async function getCart() {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const user = await getUser(token);
-      const gottenCart = await getCartByUserId(token, user.id);
-      if(!gottenCart) {
-        const createdCart = await createUserCart(token);
-        setCart(createdCart);
-      }
-      else {
-        setCart(gottenCart);
-      }
-      
-    } else {
-        const cartCode = localStorage.getItem("cartCode");
-        console.log(cartCode, "cartCode");
-        if(!cartCode){
-            const code = await createGuestCart();
-            console.log(code,"CODE")
-            const gottenCart = await getGuestCartByCode(code.code);
-            console.log(gottenCart, "cart");
-            localStorage.setItem("cartCode", code.code);
-            setCart(gottenCart);
-        }
-        else{
-            const gottenCart = await getGuestCartByCode(cartCode);
-            console.log(gottenCart, "cart");
-            setCart(gottenCart);
-        }
-      
-    }
-    console.log(cart, "CART");
-  }
+  const [refresh, setRefresh] = [props.refresh, props.setRefresh];
+  const [cartProductIds, setCartProductIds] = useState([]);
+
   useEffect(() => {
-    getCart();
+    console.log(cartProductIds)
   }, [refresh]);
 
   async function handleUpdateProduct({count, cart, product }){
