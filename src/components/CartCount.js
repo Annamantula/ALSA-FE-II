@@ -50,7 +50,7 @@ export default function CartCount(props){
     }
     return(
         <div>
-            <h5 id ="ttl2">Count: {count}</h5>
+            <h5 id ="ttl2">Number In Cart: {count}</h5>
             <div>
             <button onClick={(event) => {
                 event.preventDefault();
